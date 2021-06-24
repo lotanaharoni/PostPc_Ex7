@@ -24,5 +24,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(newOrderIntent);
             finish();
         }
+        else {
+            // check what status
+        }
     }
 }

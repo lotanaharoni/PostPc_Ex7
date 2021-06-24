@@ -53,7 +53,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 String comment = userComment.getText().toString();
                 Order newOrder = new Order(name, pickles, hummus, tahini, comment);
                 myLocalDb.addOrder(newOrder);
-                Intent editOrderIntent = new Intent(NewOrderActivity.this, OrderInProgressActivity.class);
+                Intent editOrderIntent = new Intent(NewOrderActivity.this, EditOrderActivity.class);
                 startActivity(editOrderIntent);
                 finish();
             }

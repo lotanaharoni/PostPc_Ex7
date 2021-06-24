@@ -6,7 +6,7 @@
     <string name="add_Hummus">Add Hummus</string>
     <string name="add_Tahini">Add Tahini</string>
     <string name="add_comment">Add Comment</string>
-    <string name="send_order_button">Send order</string>
+    <string name="save_order_button">Save order</string>
     <string name="delete_order_button">Delete order</string>
     <string name="edit_order_text">Edit your order</string>
     <string name="order_in_progress_title">Your order is in progress</string>
