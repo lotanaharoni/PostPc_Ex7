@@ -1,6 +1,7 @@
 package com.example.ex7_postpc;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EditOrderActivity extends AppCompatActivity {
 
     MyLocalDb myLocalDb = null;
+    String currentId;
     EditText customerName;
     EditText pickelsAmount;
     CheckBox isHumusChecked;
@@ -37,12 +39,17 @@ public class EditOrderActivity extends AppCompatActivity {
         sendOrderButton = findViewById(R.id.sendOrderButton);
         deleteOrderButton = findViewById(R.id.deleteOrderButton);
 
+        currentId = myLocalDb.loadFromLocal();
+
         sendOrderButton.setOnClickListener(view -> {
 
         });
 
         deleteOrderButton.setOnClickListener(view -> {
-
+            myLocalDb.deleteOrder(currentId);
+            Intent newActivityIntent = new Intent(EditOrderActivity.this, NewOrderActivity.class);
+            startActivity(newActivityIntent);
+            finish();
         });
     }
 

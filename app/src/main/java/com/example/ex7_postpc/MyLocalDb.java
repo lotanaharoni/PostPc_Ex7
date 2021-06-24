@@ -50,4 +50,16 @@ public class MyLocalDb {
         }
         return gson.fromJson(currentId, String.class);
     }
+
+    public void deleteOrder(String currentId){
+        firestore.collection("orders").document(currentId).delete();
+        deleteSp();
+    }
+
+    private void deleteSp(){
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.apply();
+    }
 }
