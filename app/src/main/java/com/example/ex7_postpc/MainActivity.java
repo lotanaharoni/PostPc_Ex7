@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
             myLocalDb = MyAppActivity.getLocalDb();
         }
         currentId = myLocalDb.getCurrentId();
+        int x = 3;
         if (currentId.equals("")){
             Intent newOrderIntent = new Intent(MainActivity.this, NewOrderActivity.class);
             startActivity(newOrderIntent);
