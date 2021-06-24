@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Ex7_PostPc</string>
+    <string name="app_name">ex7_PostPc</string>
+    <string name="new_order_title">Order a new Sandwich</string>
+    <string name="pickels_title">Choose how many pickels up to 10</string>
+    <string name="type_pickels">Type amount of pickles</string>
+    <string name="add_Hummus">Add Hummus</string>
+    <string name="add_Tahini">Add Tahini</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="send_order_button">Send order</string>
+    <string name="delete_order_button">Delete order</string>
+    <string name="edit_order_text">Edit your order</string>
+    <string name="order_in_progress_title">Your order is in progress</string>
+    <string name="order_in_progress_text">Just few more moments and your sandwich is ready!</string>
+    <string name="empty_customer_name_error">Enter name</string>
 </resources>
