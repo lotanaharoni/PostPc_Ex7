@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "251132373854",
+    "project_id": "postpcex7-e0955",
+    "storage_bucket": "postpcex7-e0955.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251132373854:android:fe67c8c35c7f6db92b7dcf",
+        "android_client_info": {
+          "package_name": "com.example.ex7_postpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251132373854-j7bs5dd82qagf8s2ntdapg9esdbhaj40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADfDZboOR_tCt2smuWPYnaqeqfuoncIrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251132373854-j7bs5dd82qagf8s2ntdapg9esdbhaj40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
