@@ -34,4 +34,8 @@ public class Order implements Serializable {
     public String getStatus() {
         return status;
     }
+
+    public String getId() {
+        return id;
+    }
 }
