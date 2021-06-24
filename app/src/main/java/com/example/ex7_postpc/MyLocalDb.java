@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.gson.Gson;
 
 public class MyLocalDb {
 
@@ -25,9 +26,28 @@ public class MyLocalDb {
 
     public void addOrder(Order order){
         firestore.collection("orders").document(order.getId()).set(order);
+        savedOrderLocally(order);
     }
 
     public String getCurrentId(){
         return this.currentId;
+    }
+
+    public void savedOrderLocally(Order order){
+        String orderId = order.getId();
+        Gson gson = new Gson();
+        String id = gson.toJson(orderId);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("currentId", id);
+        editor.apply();
+    }
+
+    public String loadFromLocal(){
+        String currentId = sp.getString("currentId", "");
+        Gson gson = new Gson();
+        if (currentId.equals("")){
+            return "";
+        }
+        return gson.fromJson(currentId, String.class);
     }
 }
