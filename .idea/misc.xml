@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_edit_order.xml" value="0.1234375" />
         <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.1234375" />
+        <entry key="app/src/main/res/layout/activity_order_in_progress.xml" value="0.1234375" />
       </map>
     </option>
   </component>
