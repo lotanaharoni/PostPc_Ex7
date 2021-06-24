@@ -8,18 +8,26 @@ import com.google.firebase.firestore.ListenerRegistration;
 
 public class MyLocalDb {
 
-    private final SharedPreferences sp;
-    private final FirebaseFirestore firestore;
+    private SharedPreferences sp = null;
+    private FirebaseFirestore firestore;
     private ListenerRegistration listenerRegistration = null;
     String currentId;
 
+    public SharedPreferences getSp(){
+        return this.sp;
+    }
+
     public MyLocalDb(Context context){
-        this.sp = context.getSharedPreferences("", Context.MODE_PRIVATE);
+        this.sp = context.getSharedPreferences("local_db", Context.MODE_PRIVATE);
         this.firestore = FirebaseFirestore.getInstance();
-        this.currentId = sp.getString("currernt_id", null);
+        this.currentId = "";
     }
 
     public void addOrder(Order order){
         firestore.collection("orders").document(order.getId()).set(order);
+    }
+
+    public String getCurrentId(){
+        return this.currentId;
     }
 }
