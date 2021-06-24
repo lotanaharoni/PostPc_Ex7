@@ -1,5 +1,6 @@
 package com.example.ex7_postpc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Editable;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.UUID;
 
 public class NewOrderActivity extends AppCompatActivity {
 
@@ -41,10 +44,18 @@ public class NewOrderActivity extends AppCompatActivity {
 
         sendOrderButton.setOnClickListener(view -> {
             if (customerName.getText().toString().equals("")){
-                Toast.makeText(this, "@string/empty_customer_name_error", Toast.LENGTH_SHORT).show();
-                // Problem
+                Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
             } else {
-
+                String name = customerName.getText().toString();
+                int pickles = Integer.parseInt(pickelsAmount.getText().toString());
+                boolean hummus = isHumusChecked.isChecked();
+                boolean tahini = isTahiniChecked.isChecked();
+                String comment = userComment.getText().toString();
+                Order newOrder = new Order(name, pickles, hummus, tahini, comment);
+                myLocalDb.addOrder(newOrder);
+                Intent editOrderIntent = new Intent(NewOrderActivity.this, OrderInProgressActivity.class);
+                startActivity(editOrderIntent);
+                finish();
             }
 
         });

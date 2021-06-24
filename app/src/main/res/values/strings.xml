@@ -11,5 +11,4 @@
     <string name="edit_order_text">Edit your order</string>
     <string name="order_in_progress_title">Your order is in progress</string>
     <string name="order_in_progress_text">Just few more moments and your sandwich is ready!</string>
-    <string name="empty_customer_name_error">Enter name</string>
 </resources>
