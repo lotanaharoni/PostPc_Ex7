@@ -45,18 +45,23 @@ public class MainActivity extends AppCompatActivity {
                             Order currentOrder = documentSnapshot.toObject(Order.class);
                             String orderStatus = currentOrder.getStatus();
                             Intent newIntent;
-                            if (orderStatus.equals("waiting")){
-                                newIntent = new Intent(MainActivity.this, EditOrderActivity.class);
+                            switch (orderStatus) {
+                                case "waiting":
+                                    newIntent = new Intent(MainActivity.this, EditOrderActivity.class);
+                                    startActivity(newIntent);
+                                    break;
+                                case "in-progress":
+                                    newIntent = new Intent(MainActivity.this, OrderInProgressActivity.class);
+                                    startActivity(newIntent);
+                                    break;
+                                case "ready":
+                                    newIntent = new Intent(MainActivity.this, ReadyOrderActivity.class);
+                                    startActivity(newIntent);
+                                    break;
+                                default:
+                                    Toast.makeText(MainActivity.this, "There was a problem", Toast.LENGTH_SHORT).show();
+                                    break;
                             }
-                            else  if (orderStatus.equals("in-progress")){
-                                newIntent = new Intent(MainActivity.this, OrderInProgressActivity.class);
-                            }
-                            // The order is ready
-                            else {
-                                newIntent = new Intent(MainActivity.this, ReadyOrderActivity.class);
-                            }
-                            startActivity(newIntent);
-                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

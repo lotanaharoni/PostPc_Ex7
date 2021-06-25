@@ -12,4 +12,5 @@
     <string name="order_in_progress_title">Your order is in progress</string>
     <string name="order_in_progress_text">Just few more moments and your sandwich is ready!</string>
     <string name="order_is_ready">The order is ready!</string>
+    <string name="got_it_after_ready">Got it!</string>
 </resources>

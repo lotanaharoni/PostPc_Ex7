@@ -64,7 +64,7 @@ public class MyLocalDb {
         deleteSp();
     }
 
-    private void deleteSp(){
+    public void deleteSp(){
         Gson gson = new Gson();
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
