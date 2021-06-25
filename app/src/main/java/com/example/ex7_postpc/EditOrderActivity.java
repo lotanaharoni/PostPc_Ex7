@@ -11,6 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditOrderActivity extends AppCompatActivity {
@@ -43,12 +46,20 @@ public class EditOrderActivity extends AppCompatActivity {
         deleteOrderButton = findViewById(R.id.deleteOrderButton);
 
         currentId = myLocalDb.loadFromLocal();
-        currentOrder = myLocalDb.getCurrentOrder();
-//        customerName.setText(currentOrder.getCustomerName());
-//        pickelsAmount.setText(String.valueOf(currentOrder.getPickles()));
-//        isHumusChecked.setChecked(currentOrder.isHummus());
-//        isTahiniChecked.setChecked(currentOrder.isTahini());
-//        userComment.setText(currentOrder.getComment());
+        FirebaseFirestore firestore = myLocalDb.getFirestore();
+        firestore.collection("orders").document(currentId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        currentOrder = documentSnapshot.toObject(Order.class);
+                        customerName.setText(currentOrder.getCustomerName());
+                        pickelsAmount.setText(String.valueOf(currentOrder.getPickles()));
+                        isHumusChecked.setChecked(currentOrder.isHummus());
+                        isTahiniChecked.setChecked(currentOrder.isTahini());
+                        userComment.setText(currentOrder.getComment());
+
+                    }
+                });
 
         sendOrderButton.setOnClickListener(view -> {
             if (customerName.getText().toString().equals("")){
@@ -64,6 +75,7 @@ public class EditOrderActivity extends AppCompatActivity {
                 currentOrder.setTahini(tahini);
                 currentOrder.setPickles(pickles);
                 currentOrder.setComment(comment);
+                Toast.makeText(EditOrderActivity.this, "The order updated successfuly", Toast.LENGTH_SHORT).show();
 //                myLocalDb.updateOrder(currentOrder);
 //                Intent editOrderIntent = new Intent(EditOrderActivity.this, MainActivity.class);
 //                startActivity(editOrderIntent);
