@@ -45,9 +45,16 @@ public class NewOrderActivity extends AppCompatActivity {
         sendOrderButton.setOnClickListener(view -> {
             if (customerName.getText().toString().equals("")){
                 Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
+            } else if (!checkNumOfPickles(pickelsAmount.getText().toString())){
+                Toast.makeText(this, "Choose pickles from 0 to 10", Toast.LENGTH_SHORT).show();
             } else {
                 String name = customerName.getText().toString();
-                int pickles = Integer.parseInt(pickelsAmount.getText().toString());
+                int pickles;
+                if (pickelsAmount.getText().toString().equals("")){
+                    pickles = 0;
+                } else {
+                    pickles = Integer.parseInt(pickelsAmount.getText().toString());
+                }
                 boolean hummus = isHumusChecked.isChecked();
                 boolean tahini = isTahiniChecked.isChecked();
                 String comment = userComment.getText().toString();
@@ -56,24 +63,6 @@ public class NewOrderActivity extends AppCompatActivity {
                 Intent editOrderIntent = new Intent(NewOrderActivity.this, EditOrderActivity.class);
                 startActivity(editOrderIntent);
                 finish();
-            }
-
-        });
-
-        customerName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -96,5 +85,13 @@ public class NewOrderActivity extends AppCompatActivity {
         isTahiniChecked.setChecked(savedInstanceState.getBoolean("isTahini"));
         isHumusChecked.setChecked(savedInstanceState.getBoolean("isHummus"));
         userComment.setText(savedInstanceState.getString("customerComment"));
+    }
+
+    private boolean checkNumOfPickles(String num){
+        if (num .equals("")){
+            return true;
+        }
+        int numOfPickles = Integer.parseInt(num);
+        return !(numOfPickles > 10 || numOfPickles < 0);
     }
 }

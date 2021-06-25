@@ -2,7 +2,7 @@
     <string name="app_name">ex7_PostPc</string>
     <string name="new_order_title">Order a new Sandwich</string>
     <string name="pickels_title">Choose how many pickels up to 10</string>
-    <string name="type_pickels">Type amount of pickles</string>
+    <string name="type_pickels">Type amount of pickles up to 10</string>
     <string name="add_Hummus">Add Hummus</string>
     <string name="add_Tahini">Add Tahini</string>
     <string name="add_comment">Add Comment</string>
@@ -13,4 +13,5 @@
     <string name="order_in_progress_text">Just few more moments and your sandwich is ready!</string>
     <string name="order_is_ready">The order is ready!</string>
     <string name="got_it_after_ready">Got it!</string>
+    <string name="amount_of_pickles">How many pickels do you want</string>
 </resources>
