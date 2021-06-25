@@ -9,12 +9,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class EditOrderActivity extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class EditOrderActivity extends AppCompatActivity {
     Button deleteOrderButton;
     Order currentOrder;
     FirebaseFirestore firestore;
+    ListenerRegistration listenerRegistration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,37 @@ public class EditOrderActivity extends AppCompatActivity {
             startActivity(newActivityIntent);
             finish();
         });
+
+        listenerRegistration = firestore.collection("orders").document(currentId)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null){
+                            Toast.makeText(EditOrderActivity.this, "There was a problem", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Order order = value.toObject(Order.class);
+                            assert order != null;
+                            if (order.getStatus().equals("in-progress")){
+                                Intent newIntent = new Intent(EditOrderActivity.this, OrderInProgressActivity.class);
+                                startActivity(newIntent);
+                                finish();
+                            }else if (order.getStatus().equals("ready")){
+                                Intent newIntent = new Intent(EditOrderActivity.this, ReadyOrderActivity.class);
+                                startActivity(newIntent);
+                                finish();
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (listenerRegistration != null){
+            listenerRegistration.remove();
+        }
     }
 
     @Override

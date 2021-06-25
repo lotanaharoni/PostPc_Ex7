@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "There was a problem", Toast.LENGTH_SHORT).show();
                                     break;
                             }
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
