@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1234375" />
         <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_order_in_progress.xml" value="0.1234375" />
+        <entry key="app/src/main/res/layout/activity_ready_order.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>

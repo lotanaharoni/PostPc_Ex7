@@ -109,4 +109,8 @@ public class MyLocalDb {
                     }
                 });
     }
+
+    public FirebaseFirestore getFirestore(){
+        return this.firestore;
+    }
 }

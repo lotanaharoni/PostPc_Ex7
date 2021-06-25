@@ -22,6 +22,7 @@
         <activity android:name=".NewOrderActivity"></activity>
         <activity android:name=".OrderInProgressActivity"></activity>
         <activity android:name=".EditOrderActivity"></activity>
+        <activity android:name=".ReadyOrderActivity"></activity>
     </application>
 
 </manifest>
