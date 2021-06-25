@@ -28,6 +28,7 @@ public class EditOrderActivity extends AppCompatActivity {
     Button sendOrderButton;
     Button deleteOrderButton;
     Order currentOrder;
+    FirebaseFirestore firestore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class EditOrderActivity extends AppCompatActivity {
         deleteOrderButton = findViewById(R.id.deleteOrderButton);
 
         currentId = myLocalDb.loadFromLocal();
-        FirebaseFirestore firestore = myLocalDb.getFirestore();
+        firestore = myLocalDb.getFirestore();
         firestore.collection("orders").document(currentId).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -57,13 +58,12 @@ public class EditOrderActivity extends AppCompatActivity {
                         isHumusChecked.setChecked(currentOrder.isHummus());
                         isTahiniChecked.setChecked(currentOrder.isTahini());
                         userComment.setText(currentOrder.getComment());
-
                     }
                 });
 
         sendOrderButton.setOnClickListener(view -> {
             if (customerName.getText().toString().equals("")){
-                Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter a name", Toast.LENGTH_SHORT).show();
             } else {
                 String name = customerName.getText().toString();
                 int pickles = Integer.parseInt(pickelsAmount.getText().toString());
@@ -75,11 +75,13 @@ public class EditOrderActivity extends AppCompatActivity {
                 currentOrder.setTahini(tahini);
                 currentOrder.setPickles(pickles);
                 currentOrder.setComment(comment);
-                Toast.makeText(EditOrderActivity.this, "The order updated successfuly", Toast.LENGTH_SHORT).show();
-//                myLocalDb.updateOrder(currentOrder);
-//                Intent editOrderIntent = new Intent(EditOrderActivity.this, MainActivity.class);
-//                startActivity(editOrderIntent);
-//                finish();
+                firestore.collection("orders").document(currentOrder.getId()).set(currentOrder)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(EditOrderActivity.this, "The order updated successfuly", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
         });

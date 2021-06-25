@@ -19,7 +19,6 @@ public class MyLocalDb {
     private SharedPreferences sp = null;
     private FirebaseFirestore firestore;
     private ListenerRegistration listenerRegistration = null;
-    String currentId;
     Order currentOrder;
 
     public SharedPreferences getSp(){
@@ -40,10 +39,6 @@ public class MyLocalDb {
         firestore.collection("orders").document(order.getId()).set(order);
         savedOrderLocally(order);
         updateCurrentOrder(order);
-    }
-
-    public String getCurrentId(){
-        return this.currentId;
     }
 
     public void savedOrderLocally(Order order){
@@ -83,16 +78,7 @@ public class MyLocalDb {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         currentOrder = documentSnapshot.toObject(Order.class);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
                 });
-        return currentOrder;
-    }
-
-    public Order getCurrentOrder() {
         return currentOrder;
     }
 
@@ -100,15 +86,6 @@ public class MyLocalDb {
         this.currentOrder = newOrder;
     }
 
-    public void updateOrder(Order order){
-        firestore.collection("orders").document(order.getId()).set(order)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-
-                    }
-                });
-    }
 
     public FirebaseFirestore getFirestore(){
         return this.firestore;
