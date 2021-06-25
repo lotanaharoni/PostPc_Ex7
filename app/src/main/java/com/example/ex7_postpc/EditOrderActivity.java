@@ -24,6 +24,7 @@ public class EditOrderActivity extends AppCompatActivity {
     EditText userComment;
     Button sendOrderButton;
     Button deleteOrderButton;
+    Order currentOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class EditOrderActivity extends AppCompatActivity {
         deleteOrderButton = findViewById(R.id.deleteOrderButton);
 
         currentId = myLocalDb.loadFromLocal();
-//        Order currentOrder = myLocalDb.getCurrentOrder();
+        currentOrder = myLocalDb.getCurrentOrder();
 //        customerName.setText(currentOrder.getCustomerName());
 //        pickelsAmount.setText(String.valueOf(currentOrder.getPickles()));
 //        isHumusChecked.setChecked(currentOrder.isHummus());
@@ -58,11 +59,15 @@ public class EditOrderActivity extends AppCompatActivity {
                 boolean hummus = isHumusChecked.isChecked();
                 boolean tahini = isTahiniChecked.isChecked();
                 String comment = userComment.getText().toString();
-                Order newOrder = new Order(name, pickles, hummus, tahini, comment);
-                myLocalDb.addOrder(newOrder);
-                Intent editOrderIntent = new Intent(EditOrderActivity.this, EditOrderActivity.class);
-                startActivity(editOrderIntent);
-                finish();
+                currentOrder.setCustomerName(name);
+                currentOrder.setHummus(hummus);
+                currentOrder.setTahini(tahini);
+                currentOrder.setPickles(pickles);
+                currentOrder.setComment(comment);
+//                myLocalDb.updateOrder(currentOrder);
+//                Intent editOrderIntent = new Intent(EditOrderActivity.this, MainActivity.class);
+//                startActivity(editOrderIntent);
+//                finish();
             }
 
         });

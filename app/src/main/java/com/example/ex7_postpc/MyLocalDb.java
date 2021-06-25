@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -26,6 +27,7 @@ public class MyLocalDb {
     }
 
     public MyLocalDb(Context context){
+        FirebaseApp.initializeApp(context);
         this.sp = context.getSharedPreferences("local_db", Context.MODE_PRIVATE);
         this.firestore = FirebaseFirestore.getInstance();
         String currentId = loadFromLocal();
@@ -96,5 +98,15 @@ public class MyLocalDb {
 
     public void updateCurrentOrder(Order newOrder){
         this.currentOrder = newOrder;
+    }
+
+    public void updateOrder(Order order){
+        firestore.collection("orders").document(order.getId()).set(order)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                });
     }
 }

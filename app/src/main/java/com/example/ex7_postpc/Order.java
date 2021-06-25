@@ -24,7 +24,7 @@ public class Order implements Serializable {
         this.tahini = tahini;
         this.comment = comment;
         this.id = UUID.randomUUID().toString();
-        this.status = "in progress";
+        this.status = "waiting";
     }
 
     public void setStatus(String status) {
@@ -57,5 +57,25 @@ public class Order implements Serializable {
 
     public String getComment() {
         return comment;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setPickles(int pickles) {
+        this.pickles = pickles;
+    }
+
+    public void setHummus(boolean hummus) {
+        this.hummus = hummus;
+    }
+
+    public void setTahini(boolean tahini) {
+        this.tahini = tahini;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
