@@ -2,7 +2,13 @@ package com.example.ex7_postpc;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.gson.Gson;
@@ -13,6 +19,7 @@ public class MyLocalDb {
     private FirebaseFirestore firestore;
     private ListenerRegistration listenerRegistration = null;
     String currentId;
+    Order currentOrder;
 
     public SharedPreferences getSp(){
         return this.sp;
@@ -21,12 +28,16 @@ public class MyLocalDb {
     public MyLocalDb(Context context){
         this.sp = context.getSharedPreferences("local_db", Context.MODE_PRIVATE);
         this.firestore = FirebaseFirestore.getInstance();
-        this.currentId = "";
+        String currentId = loadFromLocal();
+        if (!currentId.equals("")){
+            currentOrder = getSavedOrderById(currentId);
+        }
     }
 
     public void addOrder(Order order){
         firestore.collection("orders").document(order.getId()).set(order);
         savedOrderLocally(order);
+        updateCurrentOrder(order);
     }
 
     public String getCurrentId(){
@@ -61,5 +72,29 @@ public class MyLocalDb {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public Order getSavedOrderById(String currentId){
+        firestore.collection("orders").document(currentId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        currentOrder = documentSnapshot.toObject(Order.class);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+        return currentOrder;
+    }
+
+    public Order getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public void updateCurrentOrder(Order newOrder){
+        this.currentOrder = newOrder;
     }
 }

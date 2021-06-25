@@ -38,4 +38,24 @@ public class Order implements Serializable {
     public String getId() {
         return id;
     }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public int getPickles() {
+        return pickles;
+    }
+
+    public boolean isHummus() {
+        return hummus;
+    }
+
+    public boolean isTahini() {
+        return tahini;
+    }
+
+    public String getComment() {
+        return comment;
+    }
 }

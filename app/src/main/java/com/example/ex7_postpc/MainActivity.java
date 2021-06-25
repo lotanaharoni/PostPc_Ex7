@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             // check what status
+            Intent newIntent = new Intent(MainActivity.this, EditOrderActivity.class);
+            startActivity(newIntent);
+            finish();
         }
     }
 }

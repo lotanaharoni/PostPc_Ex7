@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditOrderActivity extends AppCompatActivity {
 
@@ -26,7 +29,6 @@ public class EditOrderActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_order);
-
         if (myLocalDb == null){
             myLocalDb = MyAppActivity.getLocalDb();
         }
@@ -40,8 +42,28 @@ public class EditOrderActivity extends AppCompatActivity {
         deleteOrderButton = findViewById(R.id.deleteOrderButton);
 
         currentId = myLocalDb.loadFromLocal();
+//        Order currentOrder = myLocalDb.getCurrentOrder();
+//        customerName.setText(currentOrder.getCustomerName());
+//        pickelsAmount.setText(String.valueOf(currentOrder.getPickles()));
+//        isHumusChecked.setChecked(currentOrder.isHummus());
+//        isTahiniChecked.setChecked(currentOrder.isTahini());
+//        userComment.setText(currentOrder.getComment());
 
         sendOrderButton.setOnClickListener(view -> {
+            if (customerName.getText().toString().equals("")){
+                Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
+            } else {
+                String name = customerName.getText().toString();
+                int pickles = Integer.parseInt(pickelsAmount.getText().toString());
+                boolean hummus = isHumusChecked.isChecked();
+                boolean tahini = isTahiniChecked.isChecked();
+                String comment = userComment.getText().toString();
+                Order newOrder = new Order(name, pickles, hummus, tahini, comment);
+                myLocalDb.addOrder(newOrder);
+                Intent editOrderIntent = new Intent(EditOrderActivity.this, EditOrderActivity.class);
+                startActivity(editOrderIntent);
+                finish();
+            }
 
         });
 
