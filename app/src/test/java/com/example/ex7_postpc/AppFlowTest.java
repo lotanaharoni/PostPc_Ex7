@@ -8,11 +8,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowToast;
-import android.widget.Button;
-import android.widget.EditText;
-
-import java.io.StringReader;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 28)
